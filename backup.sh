@@ -16,8 +16,8 @@
 # (hold the steps below first monthly than Weekly and at last Daily)
 #
 # 0  23 28-31 * * [ $(date -d +1day +%d) -eq 1 ] && backup.sh monthly 	
-# 20 23 * 6 backup.sh weekly
-# 30 23 * * backup.sh daily
+# 20 23 * * 7 backup.sh weekly (sunday)
+# 30 23 * * * backup.sh daily
 #
 #
 #--------------------------
@@ -57,10 +57,10 @@
 
 
 #sources to backup
-src="/etc /var/cache"
+src="/usr/local/nginx/html/wpsite/sites"
 
 # backup destination
-dest=/mnt/backup
+dest=/backups
 
 
 # log file
@@ -68,9 +68,9 @@ backuplog=/var/log/backup.log
 
 # rotation credentials
 # the oldest set of every backup will be deleted
-daily=7
+daily=14
 weekly=3
-monthly=4
+monthly=2
 
 #const 
 jahrTag=$(date +%j)	# 244
@@ -107,7 +107,7 @@ initCheckBackup(){
 }
 
 executeBackup(){
-	
+	mysqldump -u root -pwsxedc wpsite > /usr/local/nginx/html/wpsite/sites/sites$(date +%d%m).sql	
 	rsync --out-format=" %t %f %b " -avl --delete --stats --progress  --log-file="$backuplog" $src $dest"/"$destSubPath/  >> $backuplog 2>&1
 
 }
