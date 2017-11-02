@@ -6,11 +6,11 @@
 
    (Türkiye / Germany)
 
- =============================
+ 
  Full automated Backup script
  daily weekly monthly backups 
  with backupSet Credentials
- =============================
+ 
 
  crontab credendials 
  (hold the steps below first monthly than Weekly and at last Daily)
@@ -20,9 +20,9 @@
  30 23 * * backup.sh daily
 
 
---------------------------
- Monthly backup will do:
- -------------------------
+
+## Monthly backup will do ##
+ 
  will run onyly between 28-31 days of Month and
  if the next day is the 1. day of next month, Monthly backup will run
   ->> see crontab example before^
@@ -35,18 +35,18 @@
 
  checks rotation credential and delete the oldest monthly backup Set
 
---------------------------
- Weekly backup will do:
---------------------------
+
+ ## Weekly backup will do ##
+
  if weekly backup run success 
  than daily backup will get symlink from current success running weekly backup
   ->>daily backup dont run if current weekly backup backup were success
 
  checksrotation credential and delete the oldest weekly backup set
 
---------------------------
- Daily backup will do:
---------------------------
+
+ ## Daily backup will do ##
+
  if weekly and monthly backup dont run current day 
   ->>than daily will run success 
 
