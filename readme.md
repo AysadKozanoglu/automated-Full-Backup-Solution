@@ -14,11 +14,11 @@
 
  crontab credendials 
  (hold the steps below first monthly than Weekly and at last Daily)
-
+<pre>
  0  23 28-31 * * [ $(date -d +1day +%d) -eq 1 ] && backup.sh monthly 	
  20 23 * 6 backup.sh weekly
  30 23 * * backup.sh daily
-
+</pre>
 
 
 ## Monthly backup will do ##
