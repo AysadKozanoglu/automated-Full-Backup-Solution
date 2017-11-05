@@ -57,7 +57,7 @@
 
 
 #sources to backup
-src="/usr/local/nginx/html/wpsite/sites"
+src="/etc /var/www /root"
 
 # backup destination
 dest=/backups
