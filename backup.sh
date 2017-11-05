@@ -107,7 +107,7 @@ initCheckBackup(){
 }
 
 executeBackup(){
-	mysqldump -u root -pPW wpsite > /usr/local/nginx/html/wpsite/sites/sites$(date +%d%m).sql	
+	mysqldump -u root -pPW wpsite > $dest"/"$destSubPath/$(date +%d%m).sql	
 	rsync --out-format=" %t %f %b " -avl --delete --stats --progress  --log-file="$backuplog" $src $dest"/"$destSubPath/  >> $backuplog 2>&1
 
 }
