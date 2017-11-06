@@ -108,7 +108,8 @@ initCheckBackup(){
 
 executeBackup(){
 	mysqldump -u root -pPW wpsite > $dest"/"$destSubPath/$(date +%d%m).sql	
-	rsync --out-format=" %t %f %b " -avl --delete --stats --progress  --log-file="$backuplog" $src $dest"/"$destSubPath/  >> $backuplog 2>&1
+	# ionice -c2 -n7 rsync --bwlimit=5000 -avzh -e ssh --progress  --ignore-existing --out-format="%t %f %b"
+	ionice -c2 -n7 rsync --out-format=" %t %f %b " -avl --delete --stats --progress  --log-file="$backuplog" $src $dest"/"$destSubPath/  >> $backuplog 2>&1
 
 }
 
