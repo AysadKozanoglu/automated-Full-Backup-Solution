@@ -15,9 +15,10 @@
 # crontab credendials 
 # (hold the steps below first monthly than Weekly and at last Daily)
 #
-# 0  23 28-31 * * [ $(date -d +1day +%d) -eq 1 ] && backup.sh monthly 	
-# 20 23 * * 7 backup.sh weekly (sunday)
-# 30 23 * * * backup.sh daily
+# 0  23 28-31 * * [ $(date -d +1day +%d) -eq 1 ] && /source/automated-Full-Backup-Solution/backup.sh monthly   
+# 20 23 * * 7 /source/automated-Full-Backup-Solution/backup.sh weekly
+# 30 23 * * * /source/automated-Full-Backup-Solution/backup.sh daily
+
 #
 #
 #--------------------------
@@ -57,10 +58,10 @@
 
 
 #sources to backup
-src="/etc /var/www /root"
+src="/etc /usr/local/nginx/html"
 
 # backup destination
-dest=/backups
+dest=/backup
 
 
 # log file
@@ -107,7 +108,7 @@ initCheckBackup(){
 }
 
 executeBackup(){
-	mysqldump -u root -pPW wpsite > $dest"/"$destSubPath/$(date +%d%m).sql	
+	mysqldump -u USER -pPASSWORD DATABASENAME > $dest"/"$destSubPath/$(date +%d%m).sql	
 	# ionice -c2 -n7 rsync --bwlimit=5000 -avzh -e ssh --progress  --ignore-existing --out-format="%t %f %b"
 	ionice -c2 -n7 rsync --out-format=" %t %f %b " -avl --delete --stats --progress  --log-file="$backuplog" $src $dest"/"$destSubPath/  >> $backuplog 2>&1
 
